@@ -239,7 +239,7 @@ func (c *ClusterUpConfig) Complete(f genericclioptions.RESTClientGetter, cmd *co
 
 	// Set the ImagePullPolicy field in static pods and components based in whether users specified
 	// the --tag flag or not.
-	c.pullPolicy = "Always"
+	c.pullPolicy = "IfNotPresent"
 	if len(c.ImageTag) > 0 {
 		c.pullPolicy = "IfNotPresent"
 	}
