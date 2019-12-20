@@ -1,0 +1,25 @@
+制作过程中，需要制作yum源，主要是安装ceph-common和origin相关的包
+1) image-registry： 对应下载地址: git clone https://github.com/openshift/image-registry --branch release-3.11
+   #go get -u github.com/openshift/imagebuilder/cmd/imagebuilder
+   #make
+   #hack/build-images.sh
+2) images: 常用的镜像制作，对应下载地址： git clone https://github.com/openshift/origin/ --branch release-3.11 
+   origin下的images目录，生成镜像方法主要是dockerfile，我编写了对应的dockerfile,并将相关的build.sh
+   #go get -u github.com/jteeuwen/go-bindata/...
+   #go get -u golang.org/x/tools/... 这个库可能没下载，需要手动go get github.com/golang/tools
+   然后把$GOPATH中的tools, 移动到golang.org/x下.   
+3） release: 对应下载地址: git clone https://github.com/openshift/release.git
+   进入projects/origin-release/golang-1.9目录，下面有build.sh，可以生成相关镜像。
+   Dockerfile文件修改了很多，尤其是下载golang那一块
+  
+4) service-serving-cert-signer: 对应下载地址:https://github.com/openshift/service-serving-cert-signer.git --branch release-3.11
+   该目录下的Dockerfile文件其实是先借助于3)过程生成的镜像系统编译生成service-serving-cert-signer，然后再把该二进制拷贝进入系统中,生成新的镜像。
+
+5) webconsole
+   这个目录下有两个项目：
+   origin-web-console: web-console的代码:  https://github.com/openshift/origin-web-console --branch release-3.11
+   origin-web-console-server: 编译的程序:  https://github.com/openshift/origin-web-console-server --branch release-3.11
+   # hack/vendor-console.sh
+   # make
+   # OS_BUILD_ENV_PRESERVE=_output/local/bin hack/env make build-images    
+
