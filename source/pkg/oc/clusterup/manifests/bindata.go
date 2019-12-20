@@ -16726,7 +16726,7 @@ spec:
   containers:
   - name: etcd
     image: IMAGE
-    imagePullPolicy: OPENSHIFT_PULL_POLICY
+    imagePullPolicy: IfNotPresent
     workingDir: /var/lib/etcd
     command: ["/bin/bash", "-c"]
     args:
@@ -16779,7 +16779,7 @@ spec:
   containers:
   - name: api
     image: IMAGE
-    imagePullPolicy: OPENSHIFT_PULL_POLICY
+    imagePullPolicy: IfNotPresent
     command: ["/bin/bash", "-c"]
     args:
     - |
@@ -16845,7 +16845,7 @@ spec:
   containers:
   - name: controllers
     image: IMAGE
-    imagePullPolicy: OPENSHIFT_PULL_POLICY
+    imagePullPolicy: IfNotPresent
     command: ["hyperkube", "kube-controller-manager"]
     args:
     - "--enable-dynamic-provisioning=true"
@@ -16912,7 +16912,7 @@ parameters:
 - name: IMAGE
   value: openshift/origin-control-plane:latest
 - name: OPENSHIFT_PULL_POLICY
-  value: Always
+  value: IfNotPresent
 - name: LOGLEVEL
   value: "0"
 - name: KUBEDNS_CONFIG_HOST_PATH
@@ -16948,7 +16948,7 @@ objects:
         containers:
         - name: kube-dns
           image: ${IMAGE}
-          imagePullPolicy: ${OPENSHIFT_PULL_POLICY}
+          imagePullPolicy: IfNotPresent
           command: ["openshift", "start", "network"]
           args:
           - "--enable=dns"
@@ -17012,7 +17012,7 @@ parameters:
 - name: IMAGE
   value: openshift/origin-control-plane
 - name: OPENSHIFT_PULL_POLICY
-  value: Always
+  value: IfNotPresent
 - name: NAMESPACE
   value: kube-proxy
 - name: LOGLEVEL
@@ -17064,7 +17064,7 @@ objects:
         containers:
         - name: kube-proxy
           image: ${IMAGE}
-          imagePullPolicy: ${OPENSHIFT_PULL_POLICY}
+          imagePullPolicy: IfNotPresent
           command: ["openshift", "start", "network"]
           args:
           - "--enable=proxy"
@@ -17112,7 +17112,7 @@ spec:
   containers:
   - name: scheduler
     image: IMAGE
-    imagePullPolicy: OPENSHIFT_PULL_POLICY
+    imagePullPolicy: IfNotPresent
     command: ["hyperkube", "kube-scheduler"]
     args:
     - "--leader-elect=true"
@@ -17163,7 +17163,7 @@ parameters:
 - name: IMAGE
   value: openshift/origin-control-plane:latest
 - name: OPENSHIFT_PULL_POLICY
-  value: Always
+  value: IfNotPresent
 - name: NAMESPACE
   value: openshift-apiserver
 - name: LOGLEVEL
@@ -17199,7 +17199,7 @@ objects:
         containers:
         - name: apiserver
           image: ${IMAGE}
-          imagePullPolicy: ${OPENSHIFT_PULL_POLICY}
+          imagePullPolicy: IfNotPresent
           env:
           - name: ADDITIONAL_ALLOWED_REGISTRIES
             value: registry.centos.org
@@ -17599,7 +17599,7 @@ parameters:
 - name: IMAGE
   value: openshift/origin-control-plane:latest
 - name: OPENSHIFT_PULL_POLICY
-  value: Always
+  value: IfNotPresent
 - name: NAMESPACE
   value: openshift-controller-manager
 - name: LOGLEVEL
@@ -17636,7 +17636,7 @@ objects:
         containers:
         - name: c
           image: ${IMAGE}
-          imagePullPolicy: ${OPENSHIFT_PULL_POLICY}
+          imagePullPolicy: IfNotPresent
           command: ["hypershift", "openshift-controller-manager"]
           args:
           - "--config=/etc/origin/master/master-config.yaml"
@@ -17696,7 +17696,7 @@ parameters:
 - name: IMAGE
   value: openshift/origin-control-plane:latest
 - name: OPENSHIFT_PULL_POLICY
-  value: Always
+  value: IfNotPresent
 - name: NAMESPACE
   value: openshift-core-operators
 - name: LOGLEVEL
@@ -17739,7 +17739,7 @@ parameters:
 - name: IMAGE
   value: openshift/origin-service-serving-cert-signer:latest
 - name: OPENSHIFT_PULL_POLICY
-  value: Always
+  value: IfNotPresent
 - name: NAMESPACE
   value: openshift-core-operators
 - name: LOGLEVEL
@@ -17800,7 +17800,7 @@ objects:
         containers:
         - name: operator
           image: openshift/origin-service-serving-cert-signer:v3.11
-          imagePullPolicy: ${OPENSHIFT_PULL_POLICY}
+          imagePullPolicy: IfNotPresent
           command: ["service-serving-cert-signer", "operator"]
           args:
           - "--config=/var/run/configmaps/config/operator-config.yaml"
@@ -17897,7 +17897,7 @@ parameters:
 - name: IMAGE
   value: openshift/origin-hypershift:latest
 - name: OPENSHIFT_PULL_POLICY
-  value: Always
+  value: IfNotPresent
 - name: NAMESPACE
   # This namespace must not be changed.
   value: openshift-core-operators
@@ -17958,7 +17958,7 @@ objects:
         containers:
         - name: operator
           image: ${IMAGE}
-          imagePullPolicy: ${OPENSHIFT_PULL_POLICY}
+          imagePullPolicy: IfNotPresent
           command: ["hypershift", "experimental", "openshift-webconsole-operator"]
           args:
           - "--config=/var/run/configmaps/config/operator-config.yaml"
@@ -18071,7 +18071,7 @@ parameters:
 - name: IMAGE
   value: openshift/origin-web-console:latest
 - name: OPENSHIFT_PULL_POLICY
-  value: Always
+  value: IfNotPresent
 - name: NAMESPACE
   # This namespace cannot be changed. Only `+"`"+`openshift-web-console`+"`"+` is supported.
   value: openshift-web-console
@@ -18108,7 +18108,7 @@ objects:
         containers:
         - name: webconsole
           image: ${IMAGE}
-          imagePullPolicy: ${OPENSHIFT_PULL_POLICY}
+          imagePullPolicy: IfNotPresent
           command:
           - "/usr/bin/origin-web-console"
           - "--audit-log-path=-"
@@ -18280,7 +18280,7 @@ parameters:
 - name: IMAGE
   value: openshift/origin-template-service-broker:latest
 - name: OPENSHIFT_PULL_POLICY
-  value: Always
+  value: IfNotPresent
 - name: NAMESPACE
   value: openshift-template-service-broker
 - name: LOGLEVEL
@@ -18314,7 +18314,7 @@ objects:
         containers:
         - name: c
           image: ${IMAGE}
-          imagePullPolicy: ${OPENSHIFT_PULL_POLICY}
+          imagePullPolicy: IfNotPresent
           command:
           - "/usr/bin/template-service-broker"
           - "start"
