@@ -1,0 +1,6 @@
+[openshift]
+name=openshift
+baseurl=http://192.168.10.16/RPMS/
+enabled=1
+gpgcheck=0
+
